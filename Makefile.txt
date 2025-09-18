@@ -1,0 +1,32 @@
+fullscale: i2c.o imu.o barometer.o logger.o voltageSensor.o receiver.o kalmanFilter.o main2.o
+	g++ main2.o i2c.o imu.o receiver.o  barometer.o voltageSensor.o logger.o kalmanFilter.o -o fullscale -lpigpio -lrt
+
+main.o: main2.cpp i2c.o imu.o barometer.o logger.o voltageSensor.o receiver.o kalmanFilter.o
+	g++ -c main2.cpp -lpigpio -lrt
+
+i2c.o: i2c.cpp i2c.h
+	g++ -c i2c.cpp
+
+imu.o: imu.cpp imu.h
+	g++ -c imu.cpp
+
+barometer.o: barometer.cpp barometer.h
+	g++ -c barometer.cpp
+
+voltageSensor.o: voltageSensor.cpp voltageSensor.h
+	g++ -c voltageSensor.cpp
+
+kalmanFilter.o: kalmanFilter.cpp kalmanFilter.h
+	g++ -c kalmanFilter.cpp
+
+logger.o: logger.cpp logger.h
+	g++ -c logger.cpp
+
+receiver.o: receiver.cpp receiver.h
+	g++ -c receiver.cpp
+
+gpio.o: GPIO.cpp GPIO.h
+	g++ -c GPIO.cpp
+clean:
+	rm *.o fullscale
+
